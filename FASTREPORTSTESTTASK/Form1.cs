@@ -25,11 +25,23 @@ namespace FASTREPORTSTESTTASK
             if (points != null)
             {
                 Graphics graphic = panel1.CreateGraphics();
-                points.DrawFigure(graphic);
+                points.DrawFigure(graphic,"Rectangle");
             }
             else
             {
                 MessageBox.Show("Поля не должны быть пусты!");
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            panel1.Refresh();
+
+            var points = new Circle(int.Parse(RaduisTxtBx.Text));
+            if (points != null)
+            {
+                Graphics graphic = panel1.CreateGraphics();
+                points.DrawFigure(graphic,"Circle");
             }
         }
     }
