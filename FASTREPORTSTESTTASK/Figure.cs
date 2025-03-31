@@ -8,12 +8,12 @@ using System.Windows.Forms;
 
 namespace FASTREPORTSTESTTASK
 {
-    internal class Figure
+    internal class Figure //суперкласс фигура
     {
-        string FigureColor;
+        string FigureColor; 
         string ShapeColor;
-        private int height;
-        private int width;
+        int height;
+        int width;
         public int dub;
 
         public int Height
@@ -35,12 +35,15 @@ namespace FASTREPORTSTESTTASK
 
         }
 
-        
-
-        public void DrawFigure()
+        public virtual Point[] GetCoord()   //функция посредник
         {
-            //Pen pen = new Pen(Color.Black, 3f);
-           // Graphics graphic = new Graphics();
+            return null;
+        }
+
+        public void DrawFigure(Graphics graphic)   //метод отрисовки фигуры
+        {
+            Pen pen = new Pen(Color.Black, 3f);
+            graphic.DrawPolygon(pen, GetCoord());
         }
         public bool IsInShape()
         {
@@ -48,19 +51,51 @@ namespace FASTREPORTSTESTTASK
         }
     }
 
-    internal class Rectangle : Figure
+    internal class Rectangle : Figure      //класс прямоугольника
     {
-        public void CreateRectangle(int iwidth, int iheight)
+
+        public Rectangle(int iwidth,int iheight)
         {
-           /* Rectangle rect = new Rectangle();
-            rect.Width = iwidth;
-            rect.Height = iheight;
+            this.Width = iwidth;
+            this.Height = iheight;
+        }
+        public override Point[] GetCoord()
+        {
             Point[] points = new Point[4];
-            points[0] = new Point(iwidth);
-            points[1] = new Point(0);
-            points[2] = new Point(0);
-            points[3] = new Point(iheight); */
-            
+            points[0] = new Point(0, 0);
+            points[1] = new Point(this.Width, 0);
+            points[2] = new Point(this.Width, this.Height);
+            points[3] = new Point(0, this.Height);
+            return points;
+        }
+    }
+
+    internal class Triangle : Figure        //класс треугольника WIP
+    {
+        private int Angle;
+        public Triangle(int angle)
+        {
+            this.Angle = angle;
+        }
+
+        /*public override Point[] GetCoord()
+        {
+            Point[] points = new Point[3];
+            points[0] = new Point(0, 0);
+            points[1] = new Point(4, 0);
+            points[2] = new Point(1, 8);
+            return points; 
+        }
+        */
+    }
+
+    internal class Circle: Figure       //класс круга WIP
+    {
+        private int Radius;
+
+        public Circle(int radius)
+        {
+            this.Radius = radius;
         }
     }
 }

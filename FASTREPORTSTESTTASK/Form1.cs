@@ -17,21 +17,20 @@ namespace FASTREPORTSTESTTASK
             InitializeComponent();
         }
 
-        private void MakeRectangleButton_Click(object sender, EventArgs e)
+        private void MakeRectangleButton_Click(object sender, EventArgs e) 
         {
             panel1.Refresh();
-            Rectangle rect = new Rectangle();
-            
-            Point[] points = new Point[4];
-            points[0] = new Point(0,0);
-            points[1] = new Point(Width/10,0);
-            points[2] = new Point(Width / 10,Height/10);
-            points[3] = new Point(0,Width/10);
-            // Rectangle rect = new Rectangle();
-            rect.CreateRectangle(int.Parse(RectangleHeightTxtBx.Text),int.Parse(RectWidthTxtBx.Text));
-            Pen pen = new Pen(Color.Black, 3f);
-            Graphics graphic = panel1.CreateGraphics();
-            graphic.DrawLines(pen, points);
+
+            var points = new Rectangle(int.Parse(RectangleHeightTxtBx.Text),int.Parse(RectWidthTxtBx.Text));
+            if (points != null)
+            {
+                Graphics graphic = panel1.CreateGraphics();
+                points.DrawFigure(graphic);
+            }
+            else
+            {
+                MessageBox.Show("Поля не должны быть пусты!");
+            }
         }
     }
 }
